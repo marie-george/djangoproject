@@ -20,3 +20,15 @@ class Product(models.Model):
         verbose_name_plural = 'продукты'
         ordering = ('name',)
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=150, verbose_name='наименование')
+    description = models.CharField(max_length=500, verbose_name='описание')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+        ordering = ('name',)
