@@ -5,6 +5,7 @@ NULLABLE = {'null': True, 'blank': True}
 
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')
+    author = models.CharField(max_length=150, verbose_name='автор')
     description = models.CharField(max_length=500, verbose_name='описание')
     category = models.CharField(max_length=150, verbose_name='категория')
     price = models.IntegerField(verbose_name='цена за покупку')
