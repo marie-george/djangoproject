@@ -17,3 +17,10 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
+def product_list(request):
+    products = Product.objects.all()
+    context = {
+        'object_list': products,
+        'title': 'Каталог товаров',
+    }
+    return render(request, 'catalog/product_list.html', context)
