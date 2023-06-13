@@ -1,12 +1,12 @@
 {% load catalog_tags %}
 
 <div class="card" style="width: 18rem;">
-    <img src="{% mediapath object.preview %}" class="card-img-top" style="{with: 200px}" title={{ object.author }} - {{ object.name }}">
+    <img src="{% mediapath object.preview %}" class="card-img-top" style="{with: 200px}" title="{{ object.author }} - {{ object.name }}">
     <div class="card-body">
         <h5 class="card-title">{{ object.author }} - {{ object.name }}</h5>
         <p class="card-text">Категория: {{ object.category }}</p>
-        <p class="card-text">{{ object.description }}</p>
+        <p class="card-text">{{ object.description|slice:":100" }}</p>
         <p class="card-text">{{ object.price }} руб.</p>
-        <a href="#" class="btn btn-primary">Подробнее</a>
+        <a href="{% url 'catalog:product_item' object.pk %}" class="btn btn-primary">Подробнее</a>
     </div>
 </div>

@@ -24,3 +24,11 @@ def product_list(request):
         'title': 'Каталог товаров',
     }
     return render(request, 'catalog/product_list.html', context)
+
+def product_item(request, pk):
+    product_item = Product.objects.get(pk=pk)
+    context = {
+        'object': product_item,
+        'title': f'{product_item.author} {product_item.name}',
+    }
+    return render(request, 'catalog/product_item.html', context)
