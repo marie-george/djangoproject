@@ -9,7 +9,7 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('contacts/', ContactsView.as_view(), name='contacts'),
     path('product_list/', ProductListView.as_view(), name='product_list'),
-    path('product_item/<int:pk>', ProductDetailView.as_view(), name='product_item'),
+    path('product_detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
     path('blog_list/', BlogListView.as_view(), name='blog_list'),
-    path('blog_detail/<int:pk>', BlogDetailView.as_view(), name='product_item')
+    path('blog_detail/<int:pk>', BlogDetailView.as_view(), name='blog_detail')
 ]
