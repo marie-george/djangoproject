@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from catalog.models import Product
 
@@ -17,18 +18,17 @@ def contacts(request):
     return render(request, 'catalog/contacts.html')
 
 
-def product_list(request):
-    products = Product.objects.all()
-    context = {
-        'object_list': products,
+class ProductListView(generic.ListView):
+    model = Product
+    extra_context = {
         'title': 'Каталог товаров',
     }
-    return render(request, 'catalog/product_list.html', context)
 
-def product_item(request, pk):
-    product_item = Product.objects.get(pk=pk)
-    context = {
-        'object': product_item,
-        'title': f'{product_item.author} {product_item.name}',
-    }
-    return render(request, 'catalog/product_item.html', context)
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = self.get_object()
+        return context_data
