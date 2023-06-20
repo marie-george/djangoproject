@@ -1,0 +1,10 @@
+{% load catalog_tags %}
+
+<div class="card" style="width: 18rem;">
+    <img src="{% mediapath object.preview %}" class="card-img-top" style="{with: 200px}" title="{{ object.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ object.name }}</h5>
+        <p class="card-text">{{ object.contents|slice:":100" }}</p>
+        <a href="{% url 'catalog:blog_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
+    </div>
+</div>
