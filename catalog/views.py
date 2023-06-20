@@ -4,9 +4,12 @@ from django.views import generic
 from catalog.models import Product
 
 
-def index(request):
-    context = {'object_list': Product.objects.all()[:4], 'title': 'Каталог товаров'}
-    return render(request, 'catalog/home.html', context)
+class IndexView(generic.TemplateView):
+    template_name = 'catalog/home.html'
+    extra_context = {
+        'title': 'Главная страница',
+        'object_list': Product.objects.all()[:4],
+    }
 
 
 def contacts(request):
