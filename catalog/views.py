@@ -45,3 +45,8 @@ class BlogDetailView(generic.DetailView):
         context_data['title'] = self.get_object()
         return context_data
 
+
+class BlogCreateView(generic.CreateView):
+    model = Blog
+    fields = ('name', 'contents', 'preview')
+    success_url = reverse_lazy('catalogue:blog_list')

@@ -3,6 +3,10 @@
 {% block content %}
 
 {% include 'catalog/includes/inc_main_menu.html' %}
+
+<div class="col-12">
+    <a href="{% url 'catalog:blog_create' %}" class="btn btn-primary m-2">Создать статью блога</a>
+</div>
 <div class="row">
     {% for object in object_list %}
     {% include 'catalog/includes/inc_blog_card.html' %}
