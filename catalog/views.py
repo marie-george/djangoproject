@@ -50,3 +50,9 @@ class BlogCreateView(generic.CreateView):
     model = Blog
     fields = ('name', 'contents', 'preview')
     success_url = reverse_lazy('catalogue:blog_list')
+
+
+class BlogUpdateView(generic.UpdateView):
+    model = Blog
+    fields = ('name', 'contents', 'preview')
+    success_url = reverse_lazy('catalogue:blog_list')

@@ -6,5 +6,6 @@
         <h5 class="card-title">{{ object.name }}</h5>
         <p class="card-text">{{ object.contents|slice:":100" }}</p>
         <a href="{% url 'catalog:blog_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
+        <a href="{% url 'catalog:blog_update' object.pk %}" class="btn btn-primary">Изменить</a>
     </div>
 </div>

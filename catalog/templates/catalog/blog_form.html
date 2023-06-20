@@ -9,11 +9,11 @@
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" class="btn btn-primary" value="Создать">
+        <input type="submit" class="btn btn-primary" value="{% if object %}Сохранить{% else %}Создать{% endif %}">
       </form>
     </div>
     <div class="card-footer">
-      <a href="{% url 'catalog:blog_list' %}" class="btn btn-primary">Назад</a>
+      <a href="{% if object %}{% url 'catalog:detail/<int:pk>' %}{% else %}{% url 'catalog:blog_list' %}{% endif %}" class="btn btn-primary">Назад</a>
     </div>
   </div>
 </div>
