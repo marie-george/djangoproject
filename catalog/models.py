@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -38,7 +40,7 @@ class Category(models.Model):
 class Blog(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')
     slug = models.SlugField(max_length=150, unique=True, verbose_name='URl')
-    contents = models.CharField(max_length=500, verbose_name='описание')
+    contents = models.TextField(verbose_name='содержание')
     creation_date = models.DateField(auto_now_add=True, verbose_name='дата создания')
     preview = models.ImageField(upload_to='blog/', verbose_name='изображение', **NULLABLE)
     is_published = models.BooleanField(default=True, verbose_name='признак публикации')
@@ -47,7 +49,16 @@ class Blog(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def get_absolute_url(self):
+        return reverse('blog_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'блог'
         verbose_name_plural = 'блоги'
         ordering = ('name',)
+
