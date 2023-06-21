@@ -6,14 +6,14 @@
 <div class="col">
   <div class="card">
     <div class="card-body">
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" class="btn btn-primary" value="{% if object %}Сохранить{% else %}Создать{% endif %}">
       </form>
     </div>
     <div class="card-footer">
-      <a href="{% if object %}{% url 'catalog:detail/<int:pk>' %}{% else %}{% url 'catalog:blog_list' %}{% endif %}" class="btn btn-primary">Назад</a>
+      <a href="{% url 'catalog:blog_list' %}" class="btn btn-primary">Назад</a>
     </div>
   </div>
 </div>
