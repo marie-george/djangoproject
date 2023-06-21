@@ -5,8 +5,8 @@
     <div class="card-body">
         <h5 class="card-title">{{ object.name }}</h5>
         <p class="card-text">{{ object.contents|slice:":100" }}</p>
-        <a href="{% url 'catalog:blog_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
-        <a href="{% url 'catalog:blog_update' object.pk %}" class="btn btn-primary">Изменить</a>
-        <a href="{% url 'catalog:blog_delete' object.pk %}" class="btn btn-primary">Удалить</a>
+        <a href="{% url 'catalog:blog_detail' object.slug %}" class="btn btn-primary">Подробнее</a>
+        <a href="{% url 'catalog:blog_update' object.slug %}" class="btn btn-primary">Изменить</a>
+        <a href="{% url 'catalog:blog_delete' object.slug %}" class="btn btn-primary">Удалить</a>
     </div>
 </div>
