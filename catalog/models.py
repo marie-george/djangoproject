@@ -57,6 +57,10 @@ class Blog(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+    def increase_view_count(self):
+        self.views_number += 1
+        self.save()
+
     class Meta:
         verbose_name = 'блог'
         verbose_name_plural = 'блоги'

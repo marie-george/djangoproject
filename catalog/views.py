@@ -45,6 +45,11 @@ class BlogDetailView(generic.DetailView):
         context_data['title'] = self.get_object()
         return context_data
 
+    def get_object(self, **kwargs):
+        views = super().get_object()
+        views.increase_view_count()
+        return views
+
 
 class BlogCreateView(generic.CreateView):
     model = Blog
