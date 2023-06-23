@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
@@ -36,6 +36,11 @@ class ProductDetailView(generic.DetailView):
 class BlogListView(generic.ListView):
     model = Blog
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
 
 class BlogDetailView(generic.DetailView):
     model = Blog
@@ -68,3 +73,16 @@ class BlogUpdateView(generic.UpdateView):
 class BlogDeleteView(generic.DeleteView):
     model = Blog
     success_url = reverse_lazy('catalog:blog_list')
+
+
+def toggle_publication(request, slug):
+    post_item = get_object_or_404(Blog, slug=slug)
+    if post_item.is_published:
+        post_item.is_published = False
+    else:
+        post_item.is_published = True
+
+    post_item.save()
+
+    return redirect(reverse('catalog:blog_detail', args=[post_item.slug]))
+
