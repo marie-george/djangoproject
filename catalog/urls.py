@@ -2,7 +2,7 @@ from django.urls import path
 
 from catalog.apps import CatalogConfig
 from catalog.views import IndexView, ContactsView, ProductListView, ProductDetailView, BlogListView, BlogDetailView, \
-    BlogCreateView, BlogUpdateView, BlogDeleteView, toggle_publication
+    BlogCreateView, BlogUpdateView, BlogDeleteView, toggle_publication, ProductCreateView
 
 app_name = CatalogConfig.name
 
@@ -10,11 +10,12 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('contacts/', ContactsView.as_view(), name='contacts'),
     path('product_list/', ProductListView.as_view(), name='product_list'),
-    path('product_detail/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
+    path('product_detail/<int:pk/>', ProductDetailView.as_view(), name='product_detail'),
     path('blog_list/', BlogListView.as_view(), name='blog_list'),
-    path('blog_detail/<slug:slug>', BlogDetailView.as_view(), name='blog_detail'),
-    path('blog/create', BlogCreateView.as_view(), name='blog_create'),
-    path('blog/update/<slug:slug>', BlogUpdateView.as_view(), name='blog_update'),
-    path('blog/delete/<slug:slug>', BlogDeleteView.as_view(), name='blog_delete'),
-    path('blog/toggle/<slug:slug>', toggle_publication, name='toggle_publication'),
+    path('blog_detail/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blog/create/', BlogCreateView.as_view(), name='blog_create'),
+    path('blog/update/<slug:slug>/', BlogUpdateView.as_view(), name='blog_update'),
+    path('blog/delete/<slug:slug>/', BlogDeleteView.as_view(), name='blog_delete'),
+    path('blog/toggle/<slug:slug>/', toggle_publication, name='toggle_publication'),
+    path('products/create/', ProductCreateView.as_view(), name='product_create')
 ]
