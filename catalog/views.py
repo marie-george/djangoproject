@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
+from catalog.forms import ProductForm
 from catalog.models import Product, Blog
 
 
@@ -31,6 +32,12 @@ class ProductDetailView(generic.DetailView):
         context_data = super().get_context_data(**kwargs)
         context_data['title'] = self.get_object()
         return context_data
+
+
+class ProductCreateView(generic.CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:product_list')
 
 
 class BlogListView(generic.ListView):
