@@ -5,25 +5,6 @@ from pytils.translit import slugify
 NULLABLE = {'null': True, 'blank': True}
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=150, verbose_name='наименование')
-    author = models.CharField(max_length=150, verbose_name='автор')
-    description = models.CharField(max_length=500, verbose_name='описание')
-    category = models.CharField(max_length=150, verbose_name='категория')
-    price = models.IntegerField(verbose_name='цена за покупку')
-    creation_date = models.DateField(verbose_name='дата создания')
-    last_change_date = models.DateField(verbose_name='дата последнего изменения')
-    preview = models.ImageField(upload_to='product/', verbose_name='изображение', **NULLABLE)
-
-    def __str__(self):
-        return f'{self.name} - {self.price}'
-
-    class Meta:
-        verbose_name = 'продукт'
-        verbose_name_plural = 'продукты'
-        ordering = ('name',)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')
     description = models.CharField(max_length=500, verbose_name='описание')
@@ -34,6 +15,34 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
+        ordering = ('name',)
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=150, verbose_name='наименование')
+    author = models.CharField(max_length=150, verbose_name='автор')
+    description = models.CharField(max_length=500, verbose_name='описание')
+    category = models.ForeignKey(Category, on_delete = models.CASCADE)
+    price = models.IntegerField(verbose_name='цена за покупку')
+    creation_date = models.DateField(verbose_name='дата создания')
+    last_change_date = models.DateField(verbose_name='дата последнего изменения')
+    preview = models.ImageField(upload_to='product/', verbose_name='изображение', **NULLABLE)
+    slug = models.SlugField(max_length=150, unique=True, verbose_name='URl')
+
+    def __str__(self):
+        return f'{self.name} - {self.price}'
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'продукт'
+        verbose_name_plural = 'продукты'
         ordering = ('name',)
 
 
