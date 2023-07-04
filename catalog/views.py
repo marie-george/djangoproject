@@ -40,6 +40,14 @@ class ProductCreateView(generic.CreateView):
     success_url = reverse_lazy('catalog:product_list')
 
 
+class ProductUpdateView(generic.UpdateView):
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('catalog:product_detail', kwargs={'slug': self.object.slug})
+
+
 class BlogListView(generic.ListView):
     model = Blog
 

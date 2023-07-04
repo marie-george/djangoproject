@@ -8,5 +8,6 @@
         <p class="card-text">{{ object.description|slice:":100" }}</p>
         <p class="card-text">{{ object.price }} руб.</p>
         <a href="{% url 'catalog:product_detail' object.slug %}" class="btn btn-primary">Подробнее</a>
+        <a href="{% url 'catalog:product_update' object.slug %}" class="btn btn-primary">Изменить</a>
     </div>
 </div>
