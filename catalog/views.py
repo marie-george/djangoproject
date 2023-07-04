@@ -48,6 +48,11 @@ class ProductUpdateView(generic.UpdateView):
         return reverse('catalog:product_detail', kwargs={'slug': self.object.slug})
 
 
+class ProductDeleteView(generic.DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')
+
+
 class BlogListView(generic.ListView):
     model = Blog
 
