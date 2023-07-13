@@ -16,6 +16,6 @@ class ProfileUpdateView(UpdateView):
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy('catalog/home.html')
+    success_url = reverse_lazy('users:login')
 
 
