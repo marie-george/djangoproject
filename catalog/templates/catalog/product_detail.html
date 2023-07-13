@@ -28,6 +28,10 @@
           <td>Цена</td>
           <td>{{ object.price }}</td>
         </tr>
+        <tr>
+          <td>Владелец</td>
+          <td>{{ object.owner|default:"Нет владельца" }}</td>
+        </tr>
       </table>
     </div>
     <div class="card-footer">

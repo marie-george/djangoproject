@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from pytils.translit import slugify
 
+from config import settings
+
 NULLABLE = {'null': True, 'blank': True}
 
 
@@ -28,6 +30,8 @@ class Product(models.Model):
     last_change_date = models.DateField(verbose_name='дата последнего изменения')
     preview = models.ImageField(upload_to='product/', verbose_name='изображение', **NULLABLE)
     slug = models.SlugField(max_length=150, unique=True, verbose_name='URl')
+
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
     def __str__(self):
         return f'{self.name} - {self.price}'
