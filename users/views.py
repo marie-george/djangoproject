@@ -1,7 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 from users.models import User
-from users.forms import UserForm
+from users.forms import UserForm, UserRegisterForm
+
 
 class ProfileUpdateView(UpdateView):
     model = User
@@ -10,5 +11,11 @@ class ProfileUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class RegisterView(CreateView):
+    model = User
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('catalog/home.html')
 
 
