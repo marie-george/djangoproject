@@ -134,3 +134,11 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'jhhjnx@mail.ru'
+EMAIL_HOST_PASSWORD = 'Gr9pUxkJZaqdUdqrerir'
+
+
