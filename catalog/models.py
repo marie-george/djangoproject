@@ -30,6 +30,7 @@ class Product(models.Model):
     last_change_date = models.DateField(verbose_name='дата последнего изменения')
     preview = models.ImageField(upload_to='product/', verbose_name='изображение', **NULLABLE)
     slug = models.SlugField(max_length=150, unique=True, verbose_name='URl')
+    is_published = models.BooleanField(default=True, verbose_name='признак публикации')
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
