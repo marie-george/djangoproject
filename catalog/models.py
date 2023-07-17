@@ -30,7 +30,7 @@ class Product(models.Model):
     last_change_date = models.DateField(verbose_name='дата последнего изменения')
     preview = models.ImageField(upload_to='product/', verbose_name='изображение', **NULLABLE)
     slug = models.SlugField(max_length=150, unique=True, verbose_name='URl')
-    is_published = models.BooleanField(default=True, verbose_name='признак публикации')
+    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
@@ -49,6 +49,12 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('name',)
+        permissions = [
+            (
+                "can_cancell_publication",
+                "Can cancell publication"
+            )
+        ]
 
 
 class Version(models.Model):

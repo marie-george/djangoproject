@@ -4,40 +4,48 @@
 {% load catalog_tags %}
 
 <div class="col">
-  <div class="card">
-    <img src="{% mediapath object.preview %}" class="card-img-top" width="100" title="{{ object.author }} - {{ object.name }}">
-    <div class="card-body">
-      <table class="table">
-        <tr>
-          <td>Автор</td>
-          <td>{{ object.author }}</td>
-        </tr>
-        <tr>
-          <td>Название</td>
-          <td>{{ object.name }}</td>
-        </tr>
-        <tr>
-          <td>Категория</td>
-          <td>{{ object.category }}</td>
-        </tr>
-        <tr>
-          <td>Описание</td>
-          <td>{{ object.description }}</td>
-        </tr>
-        <tr>
-          <td>Цена</td>
-          <td>{{ object.price }}</td>
-        </tr>
-        <tr>
-          <td>Владелец</td>
-          <td>{{ object.owner|default:"Нет владельца" }}</td>
-        </tr>
-      </table>
+    <div class="card">
+        <img src="{% mediapath object.preview %}" class="card-img-top" width="100"
+             title="{{ object.author }} - {{ object.name }}">
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td>Автор</td>
+                    <td>{{ object.author }}</td>
+                </tr>
+                <tr>
+                    <td>Название</td>
+                    <td>{{ object.name }}</td>
+                </tr>
+                <tr>
+                    <td>Категория</td>
+                    <td>{{ object.category }}</td>
+                </tr>
+                <tr>
+                    <td>Описание</td>
+                    <td>{{ object.description }}</td>
+                </tr>
+                <tr>
+                    <td>Цена</td>
+                    <td>{{ object.price }}</td>
+                </tr>
+                <tr>
+                    <td>Владелец</td>
+                    <td>{{ object.owner|default:"Нет владельца" }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Назад</a>
+            <a href="{% url 'catalog:toggle_publication_product' object.slug %}" class="btn btn-outline-primary">
+                {% if object.is_published %}
+                Не публиковать
+                {% else %}
+                Опубликовать
+                {% endif %}
+            </a>
+        </div>
     </div>
-    <div class="card-footer">
-      <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Назад</a>
-    </div>
-  </div>
 </div>
 
 {% endblock %}

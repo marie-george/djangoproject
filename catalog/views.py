@@ -29,6 +29,7 @@ class ProductListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.prefetch_related('version_set')
+        queryset = queryset.filter(is_published=True)
         return queryset
 
 
@@ -139,4 +140,16 @@ def toggle_publication(request, slug):
     post_item.save()
 
     return redirect(reverse('catalog:blog_detail', args=[post_item.slug]))
+
+
+def toggle_publication_product(request, slug):
+    post_item = get_object_or_404(Product, slug=slug)
+    if post_item.is_published:
+        post_item.is_published = False
+    else:
+        post_item.is_published = True
+
+    post_item.save()
+
+    return redirect(reverse('catalog:product_detail', args=[post_item.slug]))
 
