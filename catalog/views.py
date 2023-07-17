@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -142,6 +143,7 @@ def toggle_publication(request, slug):
     return redirect(reverse('catalog:blog_detail', args=[post_item.slug]))
 
 
+@permission_required("catalog.can_cancell_publication")
 def toggle_publication_product(request, slug):
     post_item = get_object_or_404(Product, slug=slug)
     if post_item.is_published:

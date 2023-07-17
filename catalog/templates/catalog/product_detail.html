@@ -37,6 +37,7 @@
         </div>
         <div class="card-footer">
             <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">Назад</a>
+            {% if perms.catalog.can_cancell_publication %}
             <a href="{% url 'catalog:toggle_publication_product' object.slug %}" class="btn btn-outline-primary">
                 {% if object.is_published %}
                 Не публиковать
@@ -44,6 +45,7 @@
                 Опубликовать
                 {% endif %}
             </a>
+            {% endif %}
         </div>
     </div>
 </div>
