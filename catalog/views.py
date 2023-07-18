@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -77,7 +78,7 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upd
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user and not self.request.user.is_staff:
-            raise Http404
+            raise PermissionDenied()
         return self.object
 
     def get_success_url(self):
