@@ -17,8 +17,12 @@
 </div>
 <div class="container">
     {% if messages %}
-    <ul class="messages">
-        <li>{{ message.1 }}</li>
+    <ul class="messages" >
+        {% for message in messages %}
+        {% if message %}
+        <li>{{ message }}</li>
+        {% endif %}
+        {% endfor %}
     </ul>
     {% endif %}
     {% block content %}

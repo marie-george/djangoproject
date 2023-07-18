@@ -142,4 +142,4 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'jhhjnx@mail.ru'
 EMAIL_HOST_PASSWORD = 'Gr9pUxkJZaqdUdqrerir'
 
-
+TEMP_EMAIL_DIR = BASE_DIR / 'mails'

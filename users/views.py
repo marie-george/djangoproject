@@ -1,4 +1,5 @@
 import random
+from time import time
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -52,12 +53,13 @@ class RegisterView(CreateView):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            print(message)
-            user.email_user(subject, message)
+            with open(settings.TEMP_EMAIL_DIR / '{}.html'.format(time()), 'w') as f:
+                f.write(message)
+            # user.email_user(subject, message)
 
             messages.success(request, ('Пожалуйста, перейдите по ссылке, чтобы закончить регистрацию.'))
 
-            return redirect('login')
+            return redirect('users:login')
 
         return render(request, self.template_name, {'form': form})
 
