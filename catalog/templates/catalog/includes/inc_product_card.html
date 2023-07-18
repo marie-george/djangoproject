@@ -9,13 +9,17 @@
         <p class="card-text">{{ object.description|slice:":100" }}</p>
         <p class="card-text">{{ object.price }} руб.</p>
         {% for version in object.version_set.all %}
-            {% if version.is_active %}
-                <p class="card-text">Версия: {{ version.version_name }} </p>
-                <p class="card-text">Номер версии: {{ version.version_number }} </p>
-            {% endif %}
+        {% if version.is_active %}
+        <p class="card-text">Версия: {{ version.version_name }} </p>
+        <p class="card-text">Номер версии: {{ version.version_number }} </p>
+        {% endif %}
         {% endfor %}
         <a href="{% url 'catalog:product_detail' object.slug %}" class="btn btn-primary">Подробнее</a>
+        {% if perms.catalog.change_product %}
         <a href="{% url 'catalog:product_update' object.slug %}" class="btn btn-primary">Изменить</a>
+        {% endif %}
+        {% if perms.catalog.delete_product %}
         <a href="{% url 'catalog:product_delete' object.slug %}" class="btn btn-primary">Удалить</a>
+        {% endif %}
     </div>
 </div>

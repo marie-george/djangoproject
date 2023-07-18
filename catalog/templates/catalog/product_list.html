@@ -3,11 +3,11 @@
 {% block content %}
 
 {% include 'catalog/includes/inc_main_menu.html' %}
-
+{% if perms.catalog.add_product %}
 <div class="col-12">
     <a href="{% url 'catalog:product_create' %}" class="btn btn-primary m-2">Добавить книгу</a>
 </div>
-
+{% endif %}
 <div class="row">
     {% for object in object_list %}
     {% include 'catalog/includes/inc_product_card.html' %}
