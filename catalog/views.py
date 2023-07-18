@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -62,6 +63,12 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upd
     permission_required = "catalog.change_product"
     form_class = ProductForm
     template_name = 'catalog/product_form_with_formset.html'
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user:
+            raise Http404
+        return self.object
 
     def get_success_url(self):
         return reverse('catalog:product_detail', kwargs={'slug': self.object.slug})
