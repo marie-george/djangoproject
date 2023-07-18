@@ -12,6 +12,15 @@ class FormStyleMixin:
 
 
 class ProductForm(FormStyleMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.moderator = kwargs.pop('Moderator')
+        super().__init__(*args, **kwargs)
+        if self.moderator:
+            for field_name in self.fields:
+                if field_name in ('description', 'category'):
+                    continue
+                self.fields[field_name].disabled = True
+
 
     class Meta:
         model = Product
@@ -40,6 +49,11 @@ class ProductForm(FormStyleMixin, forms.ModelForm):
                 raise forms.ValidationError('В названии или описании есть слова, которые запрещены к использованию на данном сайте')
 
         return cleaned_data
+
+    # def disable_description(self):
+
+        # cleaned_data = self.cleaned_data['description']
+
 
 
 class VersionForm(FormStyleMixin, forms.ModelForm):

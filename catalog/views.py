@@ -64,6 +64,16 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upd
     form_class = ProductForm
     template_name = 'catalog/product_form_with_formset.html'
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.user.groups.filter(name="Moderators"):
+            kwargs['Moderator'] = True
+        else:
+            kwargs['Moderator'] = False
+        # kwargs.update({'request': self.request})
+
+        return kwargs
+
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
         if self.object.owner != self.request.user and not self.request.user.is_staff:
