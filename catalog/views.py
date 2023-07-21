@@ -8,7 +8,8 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class IndexView(generic.TemplateView):
@@ -176,3 +177,10 @@ def toggle_publication_product(request, slug):
 
     return redirect(reverse('catalog:product_detail', args=[post_item.slug]))
 
+
+class CategoriesListView(generic.ListView):
+    model = Category
+    extra_context = {
+        'title': 'Список категорий',
+        'category_list': get_categories_from_cache()
+    }

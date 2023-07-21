@@ -4,7 +4,7 @@ from django.views.decorators.cache import cache_page
 from catalog.apps import CatalogConfig
 from catalog.views import IndexView, ContactsView, ProductListView, ProductDetailView, BlogListView, BlogDetailView, \
     BlogCreateView, BlogUpdateView, BlogDeleteView, toggle_publication, ProductCreateView, ProductUpdateView, \
-    ProductDeleteView, toggle_publication_product
+    ProductDeleteView, toggle_publication_product, CategoriesListView
 
 app_name = CatalogConfig.name
 
@@ -23,4 +23,5 @@ urlpatterns = [
     path('products/update/<slug:slug>/', ProductUpdateView.as_view(), name='product_update'),
     path('products/delete/<slug:slug>/', ProductDeleteView.as_view(), name='product_delete'),
     path('products/toggle/<slug:slug>/', toggle_publication_product, name='toggle_publication_product'),
+    path('categories_list/', CategoriesListView.as_view(), name='categories_list'),
 ]
